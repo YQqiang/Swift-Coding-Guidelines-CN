@@ -11,10 +11,10 @@
 {% endhint %}
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 let stringOfInts = [1, 2, 3].flatMap { String($0) }
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 var stringOfInts: [String] = []
 for integer in [1, 2, 3] {
     stringOfInts.append(String(integer))
@@ -22,10 +22,10 @@ for integer in [1, 2, 3] {
 ```
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 let evenNumbers = [4, 8, 15, 16, 23, 42].filter { $0 % 2 == 0 }
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 var evenNumbers: [Int] = []
 for integer in [4, 8, 15, 16, 23, 42] {
     if integer % 2 == 0 {
@@ -79,12 +79,12 @@ myFunction() { [weak self] (error) -> Void in
 当一个函数没有参数，仅仅是返回一些对象或值，最好使用计算属性。
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 public var fullName: String {
     return "\(self.name) \(self.surname)"
 }
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 function fullName() -> String {
     return "\(self.name) \(self.surname)"
 } 
@@ -168,10 +168,10 @@ var b = Bool(false)
 访问修饰符必须放在声明属性之前。
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 private static let myPrivateVar: Int
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 static private let myPrivateVar: Int
 ```
 
@@ -180,12 +180,12 @@ static private let myPrivateVar: Int
 访问修饰符关键字应该和其他代码放在一行。
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 open class MyClass {
     /* ... */
 }
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 open
 class MyClass {
     /* ... */
@@ -251,10 +251,10 @@ Switch语句中不存在隐式贯穿，因此不需要在 case 分支中显式�
 当为枚举定义关联值时，一定要显式地描述它。
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 case animated(duration: TimeInterval
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 case animated(TimeInterval)
 ```
 
@@ -282,10 +282,10 @@ func doSomethingWithNumber(_ digit: Int) throws {
 当编译器能够自动推导出枚举类型时，则不需要写出枚举类型。
 
 ```swift
-// 推荐
+// ✅推荐
 .enumValue
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 MyEnum.enumValue
 ```
 
@@ -304,12 +304,12 @@ MyEnum.enumValue
 当需要判断值是否为`nil`又不需要解包出来的值，则可以进行显示比较。
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 if someOptional != nil {
     /* ... */
 }
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 if let _ = someOptional {
     /* ... */
 }
@@ -320,10 +320,10 @@ if let _ = someOptional {
 避免使用隐式解包
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 weak var myViewController: UIViewController?
 
-// 不推荐使用
+// ❌不推荐使用
 weak var myViewController: UIViewController!
 unowned var myViewController: UIViewController
 ```
@@ -415,12 +415,12 @@ if
 创建只读计算属性，不需要增加`get {}` 。
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 var diameter: Double {
     return radius * 2
 }
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 var diameter: Double {
     get {
         return radius * 2
@@ -459,11 +459,11 @@ class NetworkManager {
 三元运算符的最佳用途是在赋值变量和决定使用哪个值。
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 var value = 5
 result = value != 0 ? x : y
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 result = a > b ? x = c > d ? c : d : y
 ```
 
@@ -513,7 +513,7 @@ let emails = names.map { fullname in
 仅当参数列表末尾有单个闭包表达式参数时，才使用尾随闭包语法。 给出闭包参数描述性名称。
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 UIView.animate(withDuration: 1.0 {
     /* ... */
 }
@@ -523,7 +523,7 @@ UIView.animate(withDuration: 1.0, animations: {
     /* ... */
 }
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 UIView.animate(withDuration: 1.0, animations: {
     /* ... */
 }, { finished in
@@ -538,10 +538,10 @@ UIView.animate(withDuration: 1.0, animations: {
 创建自定义代理方法时，未命名的第一个参数应该是委托源。
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 func customPickerView(_ pickerView: CustomPickerView, numberOfRows: Int)
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 func customPickerView(pickerView: CustomPickerView, numberOfRows: Int)
 ```
 
@@ -566,7 +566,7 @@ func customPickerView(pickerView: CustomPickerView, numberOfRows: Int)
 尽早退出是对函数进行完整性检查的首选方法。也是避免嵌套`if`语句的首选方法。使用`guard`可以提高代码的可读性。
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 func doSomethingWithItem(at index: Int) {
     guard index >= 0 && index < item.count else {
         // 因为数组越界提前退出
@@ -576,7 +576,7 @@ func doSomethingWithItem(at index: Int) {
     doSomethingWithObject(item)
 }
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 func doSomethingWithItem(at index: Int) {
     if index >= 0 && index < item.count {
         let item = item[index]
@@ -590,20 +590,20 @@ func doSomethingWithItem(at index: Int) {
 免使用嵌套的`if`语句并减少代码中嵌套缩进的数量：使用`guard`语句而不是`if`语句进行完整性检查。
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 guard let anObject = anObject else {
     return
 }
 doSomething(with: anObject)
 doAnotherStuff(with: anObject)
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 if let anObject = anObject {
     doSomething(with: anObject)
     doAnotherStuff(with: anObject)
 }
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 if anObject == nil {
     return
 }
@@ -616,12 +616,12 @@ doAnotherStuff(with: anObject!)
 避免在一行上使用`guard`语句。
 
 ```swift
-// 推荐
+// ✅推荐
 guard let aValue = aValue else {
     return
 }
 
-// 不推荐
+// ❌不推荐
 guard let aValue = aValue else { return }
 ```
 
@@ -634,14 +634,14 @@ guard let aValue = aValue else { return }
 如果在两个不同的状态之间进行选择，则使用`if`语句而不是使用`guard`语句更有意义。
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 if aCondition {
     /* code A */
 } else {
     /* code B */
 }
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 guard aCondition else {
     /* code B */
     return

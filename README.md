@@ -161,11 +161,11 @@ someFunctionWithABunchOfArguments(
 对于空数组和空字典，在声明时需要指定类型
 
 ```swift
-// 指定类型 推荐方式
+// 指定类型 ✅推荐方式
 var names: [String] = []
 var lookup: [String: Int] = [:]
 
-// 类型推导 🙅‍♂️不推荐
+// 类型推导 ❌不推荐
 var names = [String]()
 var lookup = [String: Int]()
 ```
@@ -200,12 +200,12 @@ if x == firstReallyReallyLongPredicateFunction()
 在`Swift`标准中，不需要在控制流语句中使用括号
 
 ```swift
-// 推荐
+// ✅推荐
 if x == y {
     /* ... */
 }
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 if (x == y) {
     /* ... */
 }

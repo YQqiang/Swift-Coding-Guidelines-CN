@@ -32,10 +32,10 @@ description: 1. 代码命名约定； 2. 文件命名约定
 // "HTML" 作为常量的开始, 需要使用小写的 "html"
 let htmlBodyContent: String = "<p>Hello, World!</p>"
 
-// 推荐使用 ID；不推荐使用 Id
+// ✅推荐使用 ID；❌不推荐使用 Id
 let profileID: Int = 1
 
-// 推荐使用 URLFinder；不推荐使用 UrlFinder
+// ✅推荐使用 URLFinder；❌不推荐使用 UrlFinder
 class URLFinder { ... }
 ```
 
@@ -78,14 +78,14 @@ class MyClassName {
 避免使用单一名称或缩写。
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 let popUpViewController: UIViewController
-// 🙅‍♂️不推荐
+// ❌不推荐
 let popupVC: UIViewController
 
-// 推荐使用
+// ✅推荐使用
 let animationDuration: TimeInterval
-// 🙅‍♂️不推荐
+// ❌不推荐
 let animDur: TimeInterval
 ```
 
@@ -107,11 +107,11 @@ class Person {
 使用`IBOutlet`时，在名称结尾添加类型。
 
 ```swift
-// 推荐使用
+// ✅推荐使用
 @IBOutlet weak var submitButton: UIButton!
 @IBOutlet weak var emailTextField: UITextField!
 
-// 🙅‍♂️不推荐
+// ❌不推荐
 // 类型在开头且是缩写
 @IBOutlet weak var btnSubmit: UIButton!
 // 类型必须放在结尾
