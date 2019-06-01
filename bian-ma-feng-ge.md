@@ -456,6 +456,8 @@ class NetworkManager {
 
 为了增加清晰度和代码整洁度，可适当使用三木运算符`? :` 。
 
+三元运算符的最佳用途是在赋值变量和决定使用哪个值。
+
 ```swift
 // 推荐使用
 var value = 5
@@ -466,6 +468,188 @@ result = a > b ? x = c > d ? c : d : y
 ```
 
 ## 闭包
+
+### 1. 省略类型
+
+在闭包内声明参数，如果能够自动推导类型，也可以省略类型。
+
+```swift
+// 省略类型
+doSomethingWithClosure() { response in
+    print(response)
+}
+
+// 显示声明类型
+doSomethingWithClosure() { response: NSURLResponse in
+    print(response)
+}
+```
+
+### 2. 行数
+
+如果不超过一行字符的限制，则应该保持左括号和参数在同一行。
+
+### 3. 简写参数
+
+仅对简单的单行闭包实现使用简写参数语法。
+
+```swift
+// [4, 6, 8]
+let doubled = [2, 3, 4].map { $0 * 2 } 
+```
+
+对于复杂的情况，明确定义参数。
+
+```swift
+let names = ["George Washington", "Martha Washington", "Abe Lincoln"]
+let emails = names.map { fullname in
+    let dottedName = fullname.replacingOccurrences(of: " ", with: ".")
+    return dottedName.lowercased() + "@whitehouse.gov"
+}
+```
+
+### 4. 尾随闭包
+
+仅当参数列表末尾有单个闭包表达式参数时，才使用尾随闭包语法。 给出闭包参数描述性名称。
+
+```swift
+// 推荐使用
+UIView.animate(withDuration: 1.0 {
+    /* ... */
+}
+UIView.animate(withDuration: 1.0, animations: {
+    /* ... */
+}, completion: { finished in
+    /* ... */
+}
+
+// 🙅‍♂️不推荐
+UIView.animate(withDuration: 1.0, animations: {
+    /* ... */
+}, { finished in
+    /* ... */
+}
+```
+
+## 代理
+
+### 1. 委托源
+
+创建自定义代理方法时，未命名的第一个参数应该是委托源。
+
+```swift
+// 推荐使用
+func customPickerView(_ pickerView: CustomPickerView, numberOfRows: Int)
+
+// 🙅‍♂️不推荐
+func customPickerView(pickerView: CustomPickerView, numberOfRows: Int)
+```
+
+## 数组
+
+### 1. 避免下标访问
+
+避免使用下标直接访问数组，但可以使用`.first`或`.last`等访问器，以确保项目不可用时的安全性。 如果没有访问器，请务必先进行正确的绑定检查。
+
+### 2. 迭代
+
+使用`for item in items` 语法，禁止使用`for i in 0 ..< items.count` 。
+
+### 3. 连接数组
+
+使用`.append()`或`.append(contentsOf:)`方法代替+-操作符去连接数组，因为在编译阶段，它们性能更高。
+
+## `guard` 的使用
+
+### 1. 尽早退出
+
+尽早退出是对函数进行完整性检查的首选方法。也是避免嵌套`if`语句的首选方法。使用`guard`可以提高代码的可读性。
+
+```swift
+// 推荐使用
+func doSomethingWithItem(at index: Int) {
+    guard index >= 0 && index < item.count else {
+        // 因为数组越界提前退出
+        return
+    }
+    let item = item[index]
+    doSomethingWithObject(item)
+}
+
+// 🙅‍♂️不推荐
+func doSomethingWithItem(at index: Int) {
+    if index >= 0 && index < item.count {
+        let item = item[index]
+        doSomethingWithObject(item)
+    }
+}
+```
+
+### 2. 完整性检查
+
+免使用嵌套的`if`语句并减少代码中嵌套缩进的数量：使用`guard`语句而不是`if`语句进行完整性检查。
+
+```swift
+// 推荐使用
+guard let anObject = anObject else {
+    return
+}
+doSomething(with: anObject)
+doAnotherStuff(with: anObject)
+
+// 🙅‍♂️不推荐
+if let anObject = anObject {
+    doSomething(with: anObject)
+    doAnotherStuff(with: anObject)
+}
+
+// 🙅‍♂️不推荐
+if anObject == nil {
+    return
+}
+doSomething(with: anObject!)
+doAnotherStuff(with: anObject!)
+```
+
+### 3. 避免单行`guard`语句
+
+避免在一行上使用`guard`语句。
+
+```swift
+// 推荐
+guard let aValue = aValue else {
+    return
+}
+
+// 不推荐
+guard let aValue = aValue else { return }
+```
+
+### 4. 使用范围
+
+只有在失败导致退出当前上下文时才应使用`guard`; 如果上下文需要继续则应该使用一个或多个`if`语句。 `guard`的目标是进行早期检查和返回。
+
+### 5. 状态选择
+
+如果在两个不同的状态之间进行选择，则使用`if`语句而不是使用`guard`语句更有意义。
+
+```swift
+// 推荐使用
+if aCondition {
+    /* code A */
+} else {
+    /* code B */
+}
+
+// 🙅‍♂️不推荐
+guard aCondition else {
+    /* code B */
+    return
+}
+/* code A */
+```
+
+
 
 
 
