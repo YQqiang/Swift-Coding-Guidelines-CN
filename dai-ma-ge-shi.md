@@ -116,7 +116,7 @@ func myFunction(parameterOne: String,
     print("\(parameterOne) \(parameterTwo) \(parameterThree)")
 }
 
-// if 语句跨跨行时，使用 Xcode 缩进规则缩进 逻辑运算符换行放在行首
+// if 语句跨行时，使用 Xcode 缩进规则缩进 逻辑运算符换行放在行首
 if myFirstValue > (mySecondValue + myThirdValue)
 	&& mySecondValue == myThirdValue
 	&& myThirdValue == (mySecondValue - myFirstValue) {
